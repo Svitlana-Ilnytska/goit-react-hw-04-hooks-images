@@ -1,0 +1,9 @@
+.spiner {
+  margin: 15px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+}
