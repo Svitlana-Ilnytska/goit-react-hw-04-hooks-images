@@ -1,50 +1,45 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import css from "./Searchbar.module.css";
 
-export default class Searchbar extends Component {
-  state = {
-    query: "",
+export default function Searchbar({ onSubmit }) {
+  const [query, setQuery] = useState("");
+
+  const handleNameChange = (e) => {
+    setQuery(e.target.value.toLowerCase());
   };
 
-  handleNameChange = (e) => {
-    this.setState({ query: e.target.value.toLowerCase() });
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (this.state.query.trim() === "") {
+    if (query.trim() === "") {
       return toast("Please enter something;)");
     }
 
-    this.props.onSubmit(this.state.query);
-    this.setState({ query: "" });
+    onSubmit(query);
+    setQuery("");
   };
 
-  render() {
-    const { query } = this.state;
-    return (
-      <header className={css.searchbar}>
-        <form onSubmit={this.handleSubmit} className={css.form}>
-          <button type="submit" className={css.button}>
-            <span className={css.buttonLabel}>Search</span>
-          </button>
+  return (
+    <header className={css.searchbar}>
+      <form onSubmit={handleSubmit} className={css.form}>
+        <button type="submit" className={css.button}>
+          <span className={css.buttonLabel}>Search</span>
+        </button>
 
-          <input
-            className={css.input}
-            type="text"
-            // autocomplete="off"
-            // autofocus
-            placeholder="Search images and photos"
-            value={query}
-            name="query"
-            onChange={this.handleNameChange}
-          />
-        </form>
-      </header>
-    );
-  }
+        <input
+          className={css.input}
+          type="text"
+          // autocomplete="off"
+          // autofocus
+          placeholder="Search images and photos"
+          value={query}
+          name="query"
+          onChange={handleNameChange}
+        />
+      </form>
+    </header>
+  );
 }
