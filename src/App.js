@@ -11,7 +11,6 @@ import * as api from "./services/api";
 
 import "./App.css";
 
-console.log(process.env.REACT_APP_WEATHER_API_KEY)
 
 export default class App extends Component {
   state = {
